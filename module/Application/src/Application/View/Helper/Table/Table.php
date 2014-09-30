@@ -127,6 +127,7 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
         }
 
 
+
         $column = $this->getTableColumnsPluginManager()->get($options['type']);
 
         unset( $options['type'] );
