@@ -299,6 +299,10 @@ class TableTest extends PhpunitTestCase
 
     public function testGetTableColumnsPluginManagerWhenIsNull()
     {
+
+        $this->setInaccessiblePropertyValue('TableColumnsPluginManager', null);
+
+
         $tableColumnsManagerMock = $this
             ->getMockFromArray('Application\View\Helper\Table\TableColumnsPluginManager', false,
             [
@@ -320,12 +324,11 @@ class TableTest extends PhpunitTestCase
             [
                 'getServiceLocator' =>
                     [
-
                         'will' => $this->returnValue($serviceManagerMock)
                     ]
             ]);
 
-        $this->setInaccessiblePropertyValue('TableColumnsPluginManager',$tableColumnsManagerMock);
+
 
 //        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->TableColumnsPluginManager);
         $this->assertSame($tableColumnsManagerMock, $this->instance->GetTableColumnsPluginManager());
