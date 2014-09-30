@@ -144,15 +144,18 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
     public function getTableColumnsPluginManager()
     {
         if(is_null($this->TableColumnsPluginManager)) {
+
             $tcpm = $this->getServiceLocator()->getServiceLocator()->get('TableColumnsPluginManager');
 
-            if(!$tcpm instanceof Application\View\Helper\Table\TableColumnsPluginManager) {
-                throw new Exception( 'impossible de recuperer le PluginManager, ce n\'est pas une instance de Application\View\Helper\Table\TableColumnsPluginManager' );
-                return false;
-            }
+//            if(!$tcpm instanceof Application\View\Helper\Table\TableColumnsPluginManager) {
+////                throw new Exception( 'impossible de recuperer le PluginManager, ce n\'est pas une instance de Application\View\Helper\Table\TableColumnsPluginManager' );
+//                return false;
+//            }
 
             $this->TableColumnsPluginManager = $tcpm;
         }
+
+
 
         return $this->TableColumnsPluginManager;
     }

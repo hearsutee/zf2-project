@@ -12,7 +12,7 @@ namespace Application\View\Helper\Table;
 
 use Application\View\Helper\Table\Column\AbstractColumn;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception;
+use Zend\ServiceManager\Exception as MainException;
 
 class TableColumnsPluginManager extends AbstractPluginManager
 {
@@ -31,7 +31,7 @@ class TableColumnsPluginManager extends AbstractPluginManager
     public function validatePlugin($plugin)
     {
         if(!$plugin instanceof AbstractColumn){
-            throw new Exception('This manager must only return an instance of AbstractColumn');
+            throw new MainException('This manager must only return an instance of AbstractColumn');
         }
 
 

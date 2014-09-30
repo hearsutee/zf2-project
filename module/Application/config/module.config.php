@@ -96,6 +96,7 @@ return array(
                 return $user;
             },
             'application.service.user-manager' => 'Application\\Service\\UserManager\\UserManagerFactory',
+            
             'TableColumnsPluginManager' => 'Application\\View\\Helper\\Table\\TableColumnsManagerFactory'
 
         ],
