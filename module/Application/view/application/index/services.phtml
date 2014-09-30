@@ -1,0 +1,19 @@
+<?php
+
+echo 'my toto config  </br> :'. print_r($this->configToto) . '</br>';
+echo 'my titi config </br>  :'. print_r($this->configTiti);
+
+echo '</br> user1 : </br> ';
+echo var_dump($this->user1->getProfile());
+
+echo '</br> user2 : </br> ';
+echo var_dump($this->user2->getProfile());
+
+echo '</br> userManager : </br> ';
+echo var_dump($this->userManager->getUser()->getProfile());
+
+//echo '</br> mailManager : </br> ';
+//echo var_dump($this->mailManager);
+
+
+
