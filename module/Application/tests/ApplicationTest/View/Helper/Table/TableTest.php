@@ -11,8 +11,15 @@ namespace ApplicationTest\View\Helper\Table;
 use Application\Test\PhpunitTestCase;
 use Application\View\Helper\Table\Table;
 
+/**
+ * Class TableTest
+ * @package ApplicationTest\View\Helper\Table
+ */
 class TableTest extends PhpunitTestCase
 {
+    /**
+     * @var
+     */
     protected $instance;
 
     /**
@@ -156,6 +163,9 @@ class TableTest extends PhpunitTestCase
 
     }
 
+    /**
+     * test add columns
+     */
     public function testAddColumns()
     {
 
@@ -189,6 +199,9 @@ class TableTest extends PhpunitTestCase
 
     }
 
+    /**
+     * test render
+     */
     public function testRender()
     {
 
@@ -284,6 +297,43 @@ class TableTest extends PhpunitTestCase
 
     }
 
+    public function testGetTableColumnsPluginManagerWhenIsNull()
+    {
+        $tableColumnManagerMock = $this
+            ->getMockFromArray('Application\View\Helper\Table\TableColumnsPluginManager', false,
+            [
+
+            ]);
+
+        $serviceManagerMock = $this
+            ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
+            [
+                'get' =>
+                    [
+                        'with' => 'TableColumnsPluginManager',
+                        'will' => $this->returnValue($tableColumnManagerMock)
+                    ]
+            ]);
+
+        $viewHelperPluginManagerMock = $this
+            ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
+            [
+                'getServiceLocator' =>
+                    [
+
+                        'will' => $this->returnValue($serviceManagerMock)
+                    ]
+            ]);
+
+        $this->assertSame($tableColumnManagerMock, $this->instance->GetTableColumnsPluginManager());
+    }
+
+    /**
+     * @param $count
+     * @param $type
+     * @param $columnMock
+     * @return \PHPUnit_Framework_MockObject_MockObject
+     */
     public function getViewHelperPlugin($count, $type, $columnMock)
     {
 //        $tableColumnManagerMock = $this->getMock('Zend\ServiceManager\ServiceManager', ['get'], [], 'TableColumnsPluginManager');

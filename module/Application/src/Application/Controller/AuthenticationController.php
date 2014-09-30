@@ -34,7 +34,7 @@ class AuthenticationController extends AbstractActionController
                 ['id' => 3, 'firstname' => 'rgererg', 'lastname' => 'ergerg', 'age' => 57],
                 ['id' => 4, 'firstname' => 'rgrgrg', 'lastname' => 'AFEZrf', 'age' => 89],
             ];
-        //$tableColumnPluginManager = $this->getServiceLocator('TableColumnPluginManager');
+        //$TableColumnsPluginManager = $this->getServiceLocator('TableColumnsPluginManager');
 
         return new ViewModel(
             [

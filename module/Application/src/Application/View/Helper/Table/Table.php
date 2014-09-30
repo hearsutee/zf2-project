@@ -21,9 +21,9 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
     use ServiceLocatorAwareTrait;
 
     /**
-     * @var TableColumnPluginManager
+     * @var TableColumnsPluginManager
      */
-    protected $tableColumnPluginManager;
+    protected $TableColumnsPluginManager;
 
     /**
      * @var array
@@ -127,7 +127,7 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
         }
 
 
-        $column = $this->getTableColumnPluginManager()->get($options['type']);
+        $column = $this->getTableColumnsPluginManager()->get($options['type']);
 
         unset( $options['type'] );
 
@@ -138,23 +138,23 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
     }
 
     /**
-     * @return Application\View\Helper\Table\TableColumnPluginManager|TableColumnPluginManager|bool
-     * @throws Exception
+     * @return Application\View\Helper\Table\TableColumnsPluginManager|TableColumnsPluginManager|bool
+     * @throws \Exception
      */
-    public function getTableColumnPluginManager()
+    public function getTableColumnsPluginManager()
     {
-        if(is_null($this->tableColumnPluginManager)) {
+        if(is_null($this->TableColumnsPluginManager)) {
             $tcpm = $this->getServiceLocator()->getServiceLocator()->get('TableColumnsPluginManager');
 
-            if(!$tcpm instanceof Application\View\Helper\Table\TableColumnPluginManager) {
-                throw new Exception( 'impossible de recuperer le PluginManager, ce n\'est pas une instance de Application\View\Helper\Table\TableColumnPluginManager' );
+            if(!$tcpm instanceof Application\View\Helper\Table\TableColumnsPluginManager) {
+                throw new Exception( 'impossible de recuperer le PluginManager, ce n\'est pas une instance de Application\View\Helper\Table\TableColumnsPluginManager' );
                 return false;
             }
 
-            $this->tableColumnPluginManager = $tcpm;
+            $this->TableColumnsPluginManager = $tcpm;
         }
 
-        return $this->tableColumnPluginManager;
+        return $this->TableColumnsPluginManager;
     }
 
     /**
