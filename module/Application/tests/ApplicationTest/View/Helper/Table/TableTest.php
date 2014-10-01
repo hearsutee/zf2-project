@@ -255,7 +255,6 @@ class TableTest extends PhpunitTestCase
                 '>value 1', 'value 2', 'value 3', 'value 4'
             ));
 
-
         $this->instance
             ->setServiceLocator($this->getViewHelperPlugin(2, 'text', $columnMock))
             ->setData($dataFixture)
@@ -297,10 +296,13 @@ class TableTest extends PhpunitTestCase
 
     }
 
+    /**
+     * test get table columns plugin manager when property is null
+     */
     public function testGetTableColumnsPluginManagerWhenIsNull()
     {
 
-        $this->setInaccessiblePropertyValue('TableColumnsPluginManager', null);
+        $this->setInaccessiblePropertyValue('tableColumnsPluginManager', null);
 
 
         $tableColumnsManagerMock = $this
@@ -324,15 +326,60 @@ class TableTest extends PhpunitTestCase
             [
                 'getServiceLocator' =>
                     [
+
                         'will' => $this->returnValue($serviceManagerMock)
                     ]
             ]);
 
 
+        $this->instance->setServiceLocator($viewHelperPluginManagerMock);
+        $this->assertSame($tableColumnsManagerMock, $this->instance->getTableColumnsPluginManager());
+//        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->tableColumnsPluginManager);
+    }
 
-//        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->TableColumnsPluginManager);
-        $this->assertSame($tableColumnsManagerMock, $this->instance->GetTableColumnsPluginManager());
+    public function testGetTableColumnsPluginManagerWhenIsNotNull()
+    {
+        $tableColumnsManagerMock = $this
+            ->getMockFromArray('Application\View\Helper\Table\TableColumnsPluginManager', false,
+                [
 
+                ]);
+
+        $this->setInaccessiblePropertyValue('tableColumnsPluginManager', $tableColumnsManagerMock);
+
+
+        $this->assertSame($tableColumnsManagerMock, $this->instance->getTableColumnsPluginManager());
+//        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->tableColumnsPluginManager);
+    }
+
+    public function testGetTableColumnsPluginManagerException()
+    {
+        $this->setInaccessiblePropertyValue('tableColumnsPluginManager', null);
+
+
+
+
+        $serviceManagerMock = $this
+            ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
+                [
+                    'get' =>
+                        [
+                            'with' => 'wrongwrong',
+                        ]
+                ]);
+
+
+        $viewHelperPluginManagerMock = $this
+            ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
+                [
+                    'getServiceLocator' =>
+                        [
+                            'will' => $this->returnValue($serviceManagerMock)
+                        ]
+                ]);
+
+        $this->instance->setServiceLocator($viewHelperPluginManagerMock);
+        $this->setExpectedException('Application\View\Helper\Table\Exception');
     }
 
     /**

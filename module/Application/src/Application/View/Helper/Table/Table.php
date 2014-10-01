@@ -12,6 +12,7 @@ use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\ServiceManager\ServiceLocatorAwareTrait;
 use Zend\View\Helper\AbstractHelper;
 
+
 /**
  * Class Table
  * @package Application\View\Helper\Table
@@ -21,9 +22,9 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
     use ServiceLocatorAwareTrait;
 
     /**
-     * @var TableColumnsPluginManager
+     * @var tableColumnsPluginManager
      */
-    protected $TableColumnsPluginManager;
+    protected $tableColumnsPluginManager;
 
     /**
      * @var array
@@ -138,27 +139,25 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
 
     }
 
-    /**
-     * @return Application\View\Helper\Table\TableColumnsPluginManager|TableColumnsPluginManager|bool
-     * @throws \Exception
-     */
+
     public function getTableColumnsPluginManager()
     {
-        if(is_null($this->TableColumnsPluginManager)) {
+        if(is_null($this->tableColumnsPluginManager)) {
 
-            $tcpm = $this->getServiceLocator()->getServiceLocator()->get('TableColumnsPluginManager');
+           $tcpm = $this
+                ->getServiceLocator()
+                ->getServiceLocator()
+                ->get('TableColumnsPluginManager');
 
-//            if(!$tcpm instanceof Application\View\Helper\Table\TableColumnsPluginManager) {
-////                throw new Exception( 'impossible de recuperer le PluginManager, ce n\'est pas une instance de Application\View\Helper\Table\TableColumnsPluginManager' );
-//                return false;
-//            }
+           if(!$tcpm instanceof TableColumnsPluginManager){
+               throw new Exception('Impossible to fetch the Manager, it is not an instance of TableColumnsPluginManager');
+               return false ;
+           }
 
-            $this->TableColumnsPluginManager = $tcpm;
-        }
+            $this->tableColumnsPluginManager = $tcpm ;
+    }
 
-
-
-        return $this->TableColumnsPluginManager;
+        return $this->tableColumnsPluginManager;
     }
 
     /**
