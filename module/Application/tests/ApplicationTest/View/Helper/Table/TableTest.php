@@ -337,6 +337,9 @@ class TableTest extends PhpunitTestCase
 //        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->tableColumnsPluginManager);
     }
 
+    /**
+     * test get table columns plugin manager when property is not null
+     */
     public function testGetTableColumnsPluginManagerWhenIsNotNull()
     {
         $tableColumnsManagerMock = $this
@@ -352,6 +355,9 @@ class TableTest extends PhpunitTestCase
 //        $this->assertInstanceOf('Application\View\Helper\Table\TableColumnsPluginManager', $this->instance->tableColumnsPluginManager);
     }
 
+    /**
+     * test get table columns plugin manager Exception
+     */
     public function testGetTableColumnsPluginManagerException()
     {
         $this->setInaccessiblePropertyValue('tableColumnsPluginManager', null);
