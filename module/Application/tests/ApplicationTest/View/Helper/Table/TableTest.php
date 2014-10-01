@@ -360,32 +360,22 @@ class TableTest extends PhpunitTestCase
      */
     public function testGetTableColumnsPluginManagerException()
     {
-        $this->setInaccessiblePropertyValue('tableColumnsPluginManager', null);
 
 
-
-
-        $serviceManagerMock = $this
-            ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
-                [
-                    'get' =>
-                        [
-                            'with' => 'wrongwrong',
-                        ]
-                ]);
+        $this->setInaccessiblePropertyValue('tableColumnsPluginManager', new \StdClass());
 
 
         $viewHelperPluginManagerMock = $this
             ->getMockFromArray('Zend\ServiceManager\ServiceManager', false,
                 [
-                    'getServiceLocator' =>
-                        [
-                            'will' => $this->returnValue($serviceManagerMock)
-                        ]
+
                 ]);
 
         $this->instance->setServiceLocator($viewHelperPluginManagerMock);
+
         $this->setExpectedException('Application\View\Helper\Table\Exception');
+        $this->instance->getTableColumnsPluginManager();
+
     }
 
     /**

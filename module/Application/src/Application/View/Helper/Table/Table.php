@@ -29,12 +29,12 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
     /**
      * @var array
      */
-    protected $data = [ ];
+    protected $data = [];
 
     /**
      * @var array
      */
-    protected $columns = [ ];
+    protected $columns = [];
 
 
     /**
@@ -65,12 +65,11 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
      */
     public function addColumn($column)
     {
-        if(is_array($column)) {
+        if (is_array($column)) {
             $column = $this->columnFactory($column);
-        }
-        else {
-            if(!$column instanceof Column\AbstractColumn) {
-                throw new Exception( 'doit etre une instance de AbstractColumn' );
+        } else {
+            if (!$column instanceof Column\AbstractColumn) {
+                throw new Exception('doit etre une instance de AbstractColumn');
             }
         }
 
@@ -86,7 +85,7 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
      */
     public function addColumns(array $columns)
     {
-        foreach($columns as $column) {
+        foreach ($columns as $column) {
             $this->addColumn($column);
         }
 
@@ -123,15 +122,14 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
      */
     public function columnFactory($options)
     {
-        if(!isset( $options['type'] )) {
-            throw new Exception( 'type has to be specified' );
+        if (!isset($options['type'])) {
+            throw new Exception('type has to be specified');
         }
-
 
 
         $column = $this->getTableColumnsPluginManager()->get($options['type']);
 
-        unset( $options['type'] );
+        unset($options['type']);
 
         $column->setOptions($options);
 
@@ -142,21 +140,19 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
 
     public function getTableColumnsPluginManager()
     {
-        if(is_null($this->tableColumnsPluginManager)) {
+        if (is_null($this->tableColumnsPluginManager)) {
 
-           $tcpm = $this
+            $this->tableColumnsPluginManager = $this
                 ->getServiceLocator()
                 ->getServiceLocator()
                 ->get('TableColumnsPluginManager');
 
-           if(!$tcpm instanceof TableColumnsPluginManager){
-               throw new Exception('Impossible to fetch the Manager, it is not an instance of TableColumnsPluginManager');
-               return false ;
-           }
 
-            $this->tableColumnsPluginManager = $tcpm ;
-    }
-
+        }
+        if (!$this->tableColumnsPluginManager instanceof TableColumnsPluginManager) {
+            throw new Exception('Impossible to fetch the Manager, it is not an instance of TableColumnsPluginManager');
+            return false;
+        }
         return $this->tableColumnsPluginManager;
     }
 
@@ -172,7 +168,7 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
         $output .= '<thead>';
         $output .= '<tr>';
 
-        foreach($this->columns as $column) {
+        foreach ($this->columns as $column) {
 
             $output .= '<th>';
 
@@ -186,9 +182,9 @@ class Table extends AbstractHelper implements ServiceLocatorAwareInterface
 
         $output .= '<tbody>';
 
-        foreach($this->data as $line) {
+        foreach ($this->data as $line) {
             $output .= '<tr>';
-            foreach($this->columns as $column) {
+            foreach ($this->columns as $column) {
 
                 $output .= '<td>';
                 $output .= $column->render($line);
